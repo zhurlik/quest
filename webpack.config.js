@@ -19,7 +19,7 @@ module.exports = {
     plugins: [
         new webpack.NoErrorsPlugin(),
         new HtmlWebpack({
-            title: 'Пиратский квест для Ани и Кати',
+            title: 'Аня и Катя',
             filename: '../index.html',
             template: __dirname + '/src/main/templates/index.ejs'
         }),
