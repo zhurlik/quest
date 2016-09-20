@@ -34,8 +34,8 @@ module.exports = function () {
         render: function() {
             return (
                 <div id="slide">
-                    <video>
-                        <source src={this.state.taskVideo} type="video/mp4" controls/>
+                    <video autoPlay src={this.state.taskVideo} controls>
+                        <source src={this.state.taskVideo} type="video/mp4"/>
                         Ваш браузер не поддерживает видео.
                     </video>
                     <div id="question">
