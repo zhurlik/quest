@@ -1,0 +1,33 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#content {
+    width: 1024px;
+    height: 640px;
+    background-image: url('../img/pirate-map.jpg');
+    background-repeat: no-repeat;
+}
+
+#slide {
+    width: 650px;
+    height: 548px;
+    background-image: url('../img/box.png');
+    background-repeat: no-repeat;
+}
+
+video {
+    width: 450px;
+    height: 250px;
+    position: relative;
+    left: 85px;
+    top: 50px;
+}
+
+#question {
+    position: relative;
+    left: 150px;
+    top: 165px;
+    color: white;
+}
