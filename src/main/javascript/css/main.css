@@ -9,8 +9,18 @@ button {
     font-family: rupster;
 }
 
+.show {
+    display: block;
+}
+
+.notShow {
+    display: none;
+}
+
 video {
-    margin-top: 20px;
+    margin-top: 35px;
+    margin-left: 55px;
+    width: 480px;
 }
 
 #content {
