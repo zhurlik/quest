@@ -5,6 +5,14 @@ html, body {
     height: 100%;
 }
 
+button {
+    font-family: rupster;
+}
+
+video {
+    margin-top: 20px;
+}
+
 #content {
     position: relative;
     width: 100%;
@@ -15,16 +23,43 @@ html, body {
 
 #slide {
     position: absolute;
-    top: 30%;
+    width: 600px;
+    height: 402px;
     left: 50%;
-    transform: translate(-30%, -50%);
+    transform: translate(-50%);
     margin: 0 auto;
     text-align: center;
+    background-image: url('../img/list.png');
+    background-repeat: no-repeat;
 }
 
 #question {
-    position: relative;
-    left: 150px;
-    top: 165px;
-    color: white;
+    font-family: palette;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,);
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    font-size: xx-large;
+}
+
+@font-face {
+    font-family: palette;
+    src: url('../font/palette.ttf');
+}
+
+@font-face {
+    font-family: rupster;
+    src: url('../font/rupster_script_free.otf');
+}
+
+@font-face {
+    font-family: scriptc;
+    src: url('../font/scriptc_.ttf');
+}
+
+@font-face {
+    font-family: scripts;
+    src: url('../font/scripts_.ttf');
 }
