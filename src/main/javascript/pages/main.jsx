@@ -7,11 +7,12 @@ module.exports = function () {
 
         getInitialState: function () {
             return {
-                pageId: 0,
+                pageId: 'intro',
                 taskDescription: 'Ну, что Вы готовы?',
                 taskHandler: this.intro,
                 taskVideo: require('../video/intro.mp4'),
                 showVideo: 'show',
+                showInput: 'notShow',
                 showQuestion: 'notShow',
                 button: 'Йо-Xo-Xo'
             }
@@ -26,26 +27,50 @@ module.exports = function () {
             this.setState({
                 showVideo: 'show',
                 showQuestion: 'notShow',
-                taskDescription: 'Вот мое первое задание на проверку твоей пиратской сноровки, и я посмотрю, хватит ли у тебя сил на поиски сокровищ. ' +
-                'Ты должен ТОЧНО посчитать, сколько ступенек в твоем доме. И это число будет первой частью кода. ' +
-                'Вторая часть кода  это количество черных меток на приглашении, внизу которого изображены ШТУРВАЛ, ЧЕРЕП, ЯКОРЬ. ' +
-                'Соедини два этих числа и ты получишь код, который и будет ответом на это задание',
+                showInput: 'show',
+                taskDescription: 'Вот мое первое задание на проверку Вашей пиратской сноровки, и я посмотрю, хватит ли у Вас сил на поиски сокровищ. ' +
+                'Вы должены ТОЧНО посчитать, сколько ступенек в вашем доме. И это число будет первой частью кода. ' +
+                'Вторая часть кода - это количество черных меток на приглашении, внизу которого изображены ШТУРВАЛ, ЧЕРЕП, ЯКОРЬ. ' +
+                'Соедините два этих числа и Вы получите код, который и будет ответом на это задание',
                 taskHandler: this.task1,
                 taskVideo: require('../video/task1.mp4'),
-                button: 'Дальше'
+                button: 'Вперед Малявки'
             });
+        },
+
+        say: function (msg) {
+            this.setState({error: msg})
         },
 
         task1: function (event) {
             console.log('>> Отвечаем на первое задание и пытаемся перейти к следующему заданию');
-            this.setState({
-                showVideo: 'show',
-                showQuestion: 'notShow',
-                taskDescription: 'Молодец, правильно! Вот тебе номер +375-297-23-18-05, позвони по нему и спроси Одноглазого ДЖО. ' +
-                'Он-то и скажет тебе, где спрятана первая часть карты.',
-                taskHandler: this.task2,
-                taskVideo: require('../video/task2.mp4')
-            })
+
+            // right code
+            if (this.refs.answer.value === '111') {
+                setTimeout(function() {
+                    this.setState({error: 'А вот и фигушки!!!'});
+                }.bind(this), 500);
+
+                setTimeout(function() {
+                    this.setState({error: 'Ладно, ладно. Шучу :)'});
+                }.bind(this), 3000);
+
+                setTimeout(function() {
+                    this.setState({
+                        showVideo: 'show',
+                        showQuestion: 'notShow',
+                        taskDescription: 'Так держать Козявки, правильно! Вот Вам номер +375-297-23-18-05, позвоните по нему и спроси Одноглазого ДЖО. ' +
+                        'Он-то и скажет Вам, где спрятана первая часть карты. Ха-Ха-Ха!',
+                        taskHandler: this.task2,
+                        taskVideo: require('../video/task2.mp4'),
+                        error: ''
+                    });
+                }.bind(this), 7000);
+            } else {
+                this.setState({
+                    error: 'У кого-то ручки-крючки, пробуйте ещё раз'
+                });
+            }
         },
 
         task2: function (event) {
@@ -133,7 +158,10 @@ module.exports = function () {
                         <div>
                             {this.state.taskDescription}
                         </div>
-                        <label>Ответ:</label><input type="text"/>
+                        <div className={this.state.showInput}>
+                            <label>Ответ:</label><input ref='answer' type="text"/>
+                        </div>
+                        <div className="error">{this.state.error}</div>
                         <button onClick={this.state.taskHandler}>{this.state.button}</button>
                     </div>
                 </div>
