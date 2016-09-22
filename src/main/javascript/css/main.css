@@ -53,8 +53,9 @@ video {
 }
 
 #question {
+    width: 90%;
     position: relative;
-    left: 50%;
+    left: 45%;
     top: 50%;
     transform: translate(-50%, -50%);
     margin: 0 auto;
@@ -62,6 +63,10 @@ video {
     font-family: palette;
     color: black;
     font-size: x-large;
+}
+
+.error {
+    color: red;
 }
 
 @font-face {
