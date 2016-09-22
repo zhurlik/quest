@@ -121,11 +121,13 @@ module.exports = function () {
         render: function () {
             return (
                 <div id="slide">
-                    <video id="video" autoPlay src={this.state.taskVideo} controls ref={this.videoHandler}
-                           className={this.state.showVideo}>
-                        <source src={this.state.taskVideo} type="video/mp4"/>
-                        Ваш браузер не поддерживает видео.
-                    </video>
+                    <div className="center">
+                        <video id="video" autoPlay src={this.state.taskVideo} controls ref={this.videoHandler}
+                               className={this.state.showVideo}>
+                            <source src={this.state.taskVideo} type="video/mp4"/>
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
                     <div id="question" className={this.state.showQuestion}>
                         <br/>
                         <div>

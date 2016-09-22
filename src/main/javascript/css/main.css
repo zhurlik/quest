@@ -18,9 +18,17 @@ button {
 }
 
 video {
-    margin-top: 35px;
-    margin-left: 55px;
-    width: 480px;
+    display:block;
+    margin:0 auto;
+}
+
+.center {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    text-align: center;
 }
 
 #content {
@@ -33,9 +41,10 @@ video {
 
 #slide {
     position: absolute;
-    width: 600px;
-    height: 402px;
+    width: 800px;
+    height: 618px;
     left: 50%;
+    top: 5%;
     transform: translate(-50%);
     margin: 0 auto;
     text-align: center;
@@ -44,12 +53,13 @@ video {
 }
 
 #question {
-    font-family: palette;
+    position: relative;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,);
+    transform: translate(-50%, -50%);
     margin: 0 auto;
     text-align: center;
+    font-family: palette;
     color: black;
     font-size: x-large;
 }
