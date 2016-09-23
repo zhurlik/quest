@@ -5,6 +5,11 @@ var css = require('../css/main.css');
 module.exports = function () {
     var Block = React.createClass({
 
+        /**
+         * Initial state on the first page.
+         *
+         * @returns {{pageId: string, taskDescription: string, taskHandler: Block.intro, taskVideo: *, showVideo: string, showInput: string, showQuestion: string, button: string}}
+         */
         getInitialState: function () {
             return {
                 pageId: 'intro',
@@ -18,9 +23,11 @@ module.exports = function () {
             }
         },
 
-        componentDidMount: function () {
-        },
-
+        /**
+         * To move on first task.
+         *
+         * @param event
+         */
         intro: function (event) {
             console.log('>> Переходим к заданиям...');
 
@@ -38,34 +45,54 @@ module.exports = function () {
             });
         },
 
-        say: function (msg) {
-            this.setState({error: msg})
+        /**
+         * To display sometime messages in the error section.
+         *
+         * @param msg
+         * @param delay
+         */
+        sayError: function (msg, delay) {
+            setTimeout(function () {
+                this.setState({error: msg});
+            }.bind(this), delay);
         },
 
+        /**
+         * To check entered answer for first task.
+         *
+         * @param event
+         */
         task1: function (event) {
             console.log('>> Отвечаем на первое задание и пытаемся перейти к следующему заданию');
 
             // right code
             if (this.refs.answer.value === '111') {
-                setTimeout(function() {
-                    this.setState({error: 'А вот и фигушки!!!'});
-                }.bind(this), 500);
+                this.setState({
+                    showInput: 'notShow',
+                    showButton: 'notShow'
+                });
+                this.sayError('А вот и фигушки!!!', 200);
+                this.sayError('Ладно, ладно. Шучу :)', 2000);
 
-                setTimeout(function() {
-                    this.setState({error: 'Ладно, ладно. Шучу :)'});
-                }.bind(this), 3000);
-
-                setTimeout(function() {
+                var goToNext = function() {
                     this.setState({
                         showVideo: 'show',
                         showQuestion: 'notShow',
+                        taskHandler: this.task2,
+                        taskVideo: require('../video/task2.mp4')
+                    });
+                }.bind(this);
+
+                setTimeout(function() {
+                    this.setState({
                         taskDescription: 'Так держать Козявки, правильно! Вот Вам номер +375-297-23-18-05, позвоните по нему и спроси Одноглазого ДЖО. ' +
                         'Он-то и скажет Вам, где спрятана первая часть карты. Ха-Ха-Ха!',
-                        taskHandler: this.task2,
-                        taskVideo: require('../video/task2.mp4'),
+                        taskHandler: goToNext,
+                        button: 'Вперед',
+                        showButton: 'show',
                         error: ''
                     });
-                }.bind(this), 7000);
+                }.bind(this), 5000);
             } else {
                 this.setState({
                     error: 'У кого-то ручки-крючки, пробуйте ещё раз'
@@ -162,7 +189,7 @@ module.exports = function () {
                             <label>Ответ:</label><input ref='answer' type="text"/>
                         </div>
                         <div className="error">{this.state.error}</div>
-                        <button onClick={this.state.taskHandler}>{this.state.button}</button>
+                        <button onClick={this.state.taskHandler} className={this.state.showButton}>{this.state.button}</button>
                     </div>
                 </div>
             );
