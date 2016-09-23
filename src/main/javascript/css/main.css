@@ -7,6 +7,8 @@ html, body {
 
 button {
     font-family: rupster;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .show {
