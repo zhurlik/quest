@@ -37,7 +37,7 @@ module.exports = function () {
                 showQuestion: 'notShow',
                 showInput: 'show',
                 taskDescription: 'Вот мое первое задание на проверку Вашей пиратской сноровки, и я посмотрю, хватит ли у Вас сил на поиски сокровищ. ' +
-                'Вы должены ТОЧНО посчитать, сколько ступенек в вашем доме. И это число будет первой частью кода. ' +
+                'Вы должны ТОЧНО посчитать, сколько ступенек в вашем доме. И это число будет первой частью кода. ' +
                 'Вторая часть кода - это количество черных меток на приглашении, внизу которого изображены ШТУРВАЛ, ЧЕРЕП, ЯКОРЬ. ' +
                 'Соедините два этих числа и Вы получите код, который и будет ответом на это задание',
                 taskHandler: this.task1,
@@ -183,8 +183,8 @@ module.exports = function () {
                     showInput: 'notShow',
                     showButton: 'notShow'
                 });
-                this.sayError('Пук-пук-пук!!!', 200);
-                this.sayError('Так уж и быть идем дальше', 2000);
+                this.sayError('А гавняшку Вам', 200);
+                this.sayError('Оставить поплыли дальше', 2000);
 
                 // go to task4
                 var goToNext = function() {
@@ -281,13 +281,50 @@ module.exports = function () {
 
         task5: function (event) {
             console.log('>> Отвечаем на пятое задание и пытаемся перейти к следующему заданию');
-            this.setState({
-                showVideo: 'show',
-                showQuestion: 'notShow',
-                taskDescription: 'Задание №6: необходимо ответить на вопрос 6666',
-                taskHandler: this.task6,
-                taskVideo: require('../video/task6.mp4')
-            })
+            // right code
+            if (this.refs.answer.value === '555') {
+
+                // a few messages before going to next task
+                this.setState({
+                    showInput: 'notShow',
+                    showButton: 'notShow'
+                });
+                this.sayError('Ошибочка...', 200);
+                this.sayError('А может и не ошибочка', 2000);
+
+                // go to task6
+                var goToNext = function() {
+                    this.setState({
+                        pageId: 'task6',
+                        showVideo: 'show',
+                        showQuestion: 'notShow',
+                        taskDescription: 'Вот Вы и добрались до последнего задания. Ну что же, я постарался сделать это задание самым сложным из всех, ' +
+                        'что Вам когда-либо доводилось решать. Решите это задание, и я отдам последнюю часть карты. Вот мое задание. ' +
+                        'Большой Энциклопедический Словарь, стр1046, стр617, стр823, стр172, стр5, стр984, ь , стр430, стр776, стр823, стр1046, ' +
+                        'стр1172, стр984, стр5, стр776, стр776, ы , стр1302, стр1046, стр617, стр823, стр172. Посмотрим, как Вы решите это задание!',
+                        taskHandler: this.task6,
+                        taskVideo: require('../video/task6.mp4'),
+                        button: 'Осталось чуть-чуть'
+                    });
+                    // clean
+                    this.refs.answer.value = '';
+                }.bind(this);
+
+                setTimeout(function() {
+                    this.setState({
+                        taskDescription: 'Обалдеть! Вы прошели все задания и нашели последнюю часть карты? ' +
+                        'Ха-Ха-Ха, но она же пуста! Ну ладно, ладно, это была плохая шутка. Подержи последнюю часть карты над огнем и, может, это поможет тебе.',
+                        taskHandler: goToNext,
+                        button: 'Газуем дальше',
+                        showButton: 'show',
+                        error: ''
+                    });
+                }.bind(this), 5000);
+            } else {
+                this.setState({
+                    error: 'Предлагаю еще раз подумать'
+                });
+            }
         },
 
         task6: function (event) {
@@ -309,7 +346,7 @@ module.exports = function () {
                 showVideo: 'notShow',
                 showQuestion: 'show'
             });
-            if (this.state.pageId === 'task2' || this.state.pageId === 'task3' || this.state.pageId === 'task4') {
+            if (this.state.pageId === 'task2' || this.state.pageId === 'task3' || this.state.pageId === 'task4' || this.state.pageId === 'task5') {
                 this.setState({
                    showInput: 'show'
                 });
