@@ -167,6 +167,11 @@ module.exports = function () {
             }
         },
 
+        /**
+         * Checks entered answer for third task.
+         *
+         * @param event
+         */
         task3: function (event) {
             console.log('>> Отвечаем на третье задание и пытаемся перейти к следующему заданию');
 
@@ -223,13 +228,55 @@ module.exports = function () {
 
         task4: function (event) {
             console.log('>> Отвечаем на четвертое задание и пытаемся перейти к следующему заданию');
-            this.setState({
-                showVideo: 'show',
-                showQuestion: 'notShow',
-                taskDescription: 'Задание №5: необходимо ответить на вопрос 5555',
-                taskHandler: this.task5,
-                taskVideo: require('../video/task5.mp4')
-            })
+
+            // right code
+            if (this.refs.answer.value === '444') {
+
+                // a few messages before going to next task
+                this.setState({
+                    showInput: 'notShow',
+                    showButton: 'notShow'
+                });
+                this.sayError('Да чтож, это такое?!', 200);
+                this.sayError('Ну, ладно, пошли дальше. Это еще не все!', 2000);
+
+                // go to task5
+                var goToNext = function() {
+                    this.setState({
+                        pageId: 'task5',
+                        showVideo: 'show',
+                        showQuestion: 'notShow',
+                        taskDescription: 'Однажды я прибыл в один из самый удаленный порт Карибского моря, в такой дальний, что язык местного населения трудно было понять. ' +
+                        'Выпив пару кружек настоящего рома, на выходе из трактира, ко мне обратился нищий старик. Он попросил у меня немного денег и, поскольку я имел при себе хороший улов и от хорошего настроения, ' +
+                        'я подал бедняге пару дублонов. Такой щедрости старик удивился и, в благодарность, стал рассказывать мне, что знает секрет,  как найти сокровища Черной бороды. ' +
+                        'Он сказал, что «ключ» к сокровищам Черной Бороды, можно найти с помощью его Бортового журнала, который ведет каждый капитан судна. ' +
+                        'Тогда я не придал значения рассказам старика, но сейчас меня мучает мысль, что, возможно, он был прав! ' +
+                        'Твое задание - найти Бортовой журнал Черной бороды. Все что я знаю, он спрятан в какой- то старой библиотеке. Сообщи мне остров, на котором Черная борода закопал свой клад, ' +
+                        'и я расскажу тебе, где спрятана часть карты.',
+                        taskHandler: this.task5,
+                        taskVideo: require('../video/task5.mp4'),
+                        button: 'Ноги в руки'
+                    });
+                    // clean
+                    this.refs.answer.value = '';
+                }.bind(this);
+
+                setTimeout(function() {
+                    this.setState({
+                        taskDescription: 'Вот это да!!! С вашей помощью я стал еще богаче чем раньше! Конечно мне придется еще поискать эти сокровища на остове, ' +
+                        'но у меня просто нюх на золотишко и я быстро его найду! Ах, да, Вам надо сказать где часть карты? ' +
+                        'Ммм.. дай-ка  подумать, кажется, я спрятал ее в почтовом ящике. Чики-пуки-барамбуки',
+                        taskHandler: goToNext,
+                        button: 'Прыг-скок по лестнице',
+                        showButton: 'show',
+                        error: ''
+                    });
+                }.bind(this), 5000);
+            } else {
+                this.setState({
+                    error: 'Привет, балбесам'
+                });
+            }
         },
 
         task5: function (event) {
@@ -262,7 +309,7 @@ module.exports = function () {
                 showVideo: 'notShow',
                 showQuestion: 'show'
             });
-            if (this.state.pageId === 'task2' || this.state.pageId === 'task3') {
+            if (this.state.pageId === 'task2' || this.state.pageId === 'task3' || this.state.pageId === 'task4') {
                 this.setState({
                    showInput: 'show'
                 });
