@@ -63,7 +63,7 @@ module.exports = function () {
          *
          * @param params
          */
-        handleAnswerAndDisplayMessages: function(params) {
+        handleAnswerAndDisplayMessages: function (params) {
             // right code
             if (this.refs.answer.value === params.answer.correctValue) {
 
@@ -76,7 +76,7 @@ module.exports = function () {
                 this.sayError(params.answer.joke2, 2000);
 
                 // go to task2
-                var goToNext = function() {
+                var goToNext = function () {
                     this.setState({
                         pageId: params.nextTask.pageId,
                         showVideo: 'show',
@@ -91,7 +91,7 @@ module.exports = function () {
                     this.refs.answer.value = '';
                 }.bind(this);
 
-                setTimeout(function() {
+                setTimeout(function () {
                     this.setState({
                         taskDescription: params.answer.help,
                         taskHandler: goToNext,
@@ -245,8 +245,8 @@ module.exports = function () {
                     correctValue: '555',
                     joke1: 'Упс, ошибочка...',
                     joke2: 'А может и не ошибочка',
-                    help: 'Обалдеть! Вы прошели все задания и нашели последнюю часть карты? ' +
-                    'Ха-Ха-Ха, но она же пуста! Ну ладно, ладно, это была плохая шутка. Подержи последнюю часть карты над огнем и, может, это поможет тебе.',
+                    help: 'Да Вы молодецы! Сам черт не нашел бы эту черную метку во всем белом свете. Из вас получатся отличные пираты! ' +
+                    'Ну хорошо, хорошо, не буду утомлять тебя своей бессмысленными речами, часть карты спрятана у тебя под кроватью.',
                     goNext: 'Газуем дальше',
                     badAnswer: 'Предлагаю еще раз подумать'
                 },
@@ -265,15 +265,27 @@ module.exports = function () {
 
         task6: function (event) {
             console.log('>> Отвечаем на последнее задание');
-            this.setState({
-                showVideo: 'show',
-                showQuestion: 'notShow',
-                taskDescription: 'Спасибо Вы успешно справились со всеми заданиями',
-                taskHandler: function () {
-                    alert(1234);
+
+            this.handleAnswerAndDisplayMessages({
+                answer: {
+                    correctValue: '666',
+                    joke1: 'А вот и не скажу',
+                    joke2: 'Так уж и быть, только не плачте',
+                    help: 'Обалдеть! Вы прошели все задания и нашели последнюю часть карты? ' +
+                    'Ха-Ха-Ха, но она же пуста! Ну ладно, ладно, это была плохая шутка. Подержи последнюю часть карты над огнем и, может, это поможет тебе.',
+                    goNext: 'Поздравление',
+                    badAnswer: 'Жми еще раз'
                 },
-                taskVideo: 'stop'
-            })
+                nextTask: {
+                    pageId: 'finish',
+                    desc: '!!!!!!!!!!!!!!!!!!!!!!!!!',
+                    handler: function() {
+                        alert('the end')
+                    },
+                    video: '',
+                    button: 'Ура!'
+                }
+            });
         },
 
         videoEnded: function () {
@@ -282,9 +294,13 @@ module.exports = function () {
                 showVideo: 'notShow',
                 showQuestion: 'show'
             });
-            if (this.state.pageId === 'task2' || this.state.pageId === 'task3' || this.state.pageId === 'task4' || this.state.pageId === 'task5') {
+            if (this.state.pageId === 'task2' ||
+                this.state.pageId === 'task3' ||
+                this.state.pageId === 'task4' ||
+                this.state.pageId === 'task5' ||
+                this.state.pageId === 'task6') {
                 this.setState({
-                   showInput: 'show'
+                    showInput: 'show'
                 });
             }
         },
@@ -312,7 +328,8 @@ module.exports = function () {
                             <label>Ответ:</label><input ref='answer' type="text"/>
                         </div>
                         <div className="error">{this.state.error}</div>
-                        <button onClick={this.state.taskHandler} className={this.state.showButton}>{this.state.button}</button>
+                        <button onClick={this.state.taskHandler}
+                                className={this.state.showButton}>{this.state.button}</button>
                     </div>
                 </div>
             );
