@@ -75,20 +75,24 @@ module.exports = function () {
                 this.sayError(params.answer.joke1, 200);
                 this.sayError(params.answer.joke2, 2000);
 
-                // go to task2
+                // go to next
                 var goToNext = function () {
-                    this.setState({
-                        pageId: params.nextTask.pageId,
-                        showVideo: 'show',
-                        showQuestion: 'notShow',
-                        taskDescription: params.nextTask.desc,
-                        taskHandler: params.nextTask.handler,
-                        taskVideo: params.nextTask.video,
-                        button: params.nextTask.button
-                    });
+                    if (params.nextTask.pageId !=='finish') {
+                        this.setState({
+                            pageId: params.nextTask.pageId,
+                            showVideo: 'show',
+                            showQuestion: 'notShow',
+                            taskDescription: params.nextTask.desc,
+                            taskHandler: params.nextTask.handler,
+                            taskVideo: params.nextTask.video,
+                            button: params.nextTask.button
+                        });
 
-                    // clean
-                    this.refs.answer.value = '';
+                        // clean
+                        this.refs.answer.value = '';
+                    } else {
+                        this.finish()
+                    }
                 }.bind(this);
 
                 setTimeout(function () {
@@ -277,14 +281,19 @@ module.exports = function () {
                     badAnswer: 'Жми еще раз'
                 },
                 nextTask: {
-                    pageId: 'finish',
-                    desc: '!!!!!!!!!!!!!!!!!!!!!!!!!',
-                    handler: function() {
-                        alert('the end')
-                    },
-                    video: '',
-                    button: 'Ура!'
+                    pageId: 'finish'
                 }
+            });
+        },
+
+        finish: function () {
+            console.log('>> Поздравление!');
+            this.setState({
+                taskDescription: '',
+                error: 'Пиф-Паф, Поздравляю С Днем Рождения!!!',
+                showInput: 'notShow',
+                showButton: 'notShow',
+                showQuestion: 'final'
             });
         },
 

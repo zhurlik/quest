@@ -20,8 +20,8 @@ button {
 }
 
 video {
-    display:block;
-    margin:0 auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .center {
@@ -65,6 +65,12 @@ video {
     font-family: palette;
     color: black;
     font-size: x-large;
+}
+
+.final {
+    height: 391px;
+    background-image: url('../img/final.jpg');
+    background-repeat: no-repeat;
 }
 
 .error {
